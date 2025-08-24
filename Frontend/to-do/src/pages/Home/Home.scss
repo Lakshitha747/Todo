@@ -1,0 +1,53 @@
+@use "../../assets/css/Colours.scss" as Colours;
+
+.home-container {
+    display: flex;
+    flex-direction: row;
+    height: calc(100% - 10rem);
+    padding: 5rem;
+
+    .left {
+        flex: 0.5;
+
+        .form-wrappper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .form {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                min-width: 20rem;
+
+                .heading {
+                    margin: 0;
+                }
+
+                .button-wrapper {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+            }
+        }
+    }
+
+    .right {
+        flex: 0.5;
+
+        .card-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    }
+
+    .divider {
+        width: 0.1rem;
+        background-color: Colours.$black;
+        margin: 0 1rem;
+    }
+}

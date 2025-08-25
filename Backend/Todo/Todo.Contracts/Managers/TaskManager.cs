@@ -31,7 +31,7 @@ namespace Todo.Contracts.Managers
             {
                 List<TaskDTO> tasks = tasksResult.Value;
 
-                tasks = tasks.Where(t => !t.IsCompleted).OrderByDescending(t => t.CompletedDate).Take(5).ToList();
+                tasks = tasks.Where(t => !t.IsCompleted).OrderByDescending(t => t.CreatedDate).Take(5).ToList();
                 return new(tasks);
             }
 

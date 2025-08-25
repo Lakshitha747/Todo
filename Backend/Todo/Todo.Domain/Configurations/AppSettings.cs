@@ -15,8 +15,7 @@
 
         public string GetDbConnectionString()
         {
-            return "Host=" + DbHost + ";Username=" + DbUsername + ";Password=" + DbPassword +
-                ";Database=" + Db;
+            return "Host=" + DbHost + ";Username=" + DbUsername + ";Password=" + DbPassword + ";Database=" + Db;
         }
     }
 }

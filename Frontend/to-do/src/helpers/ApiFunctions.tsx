@@ -3,14 +3,7 @@ import type { IError } from "./Interfaces";
 import { showToast } from "./ToastFunctions";
 
 export function getBaseURL() {
-
-    let env = process.env.REACT_APP_ENV;
-
-    if (env === "production") {
-        return "";
-    } else {
-        return "https://localhost:7280";
-    }
+    return "http://localhost:8080";
 }
 
 export function handleApiErrors(error: AxiosError) {

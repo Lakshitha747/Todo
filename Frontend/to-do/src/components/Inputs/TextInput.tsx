@@ -1,11 +1,12 @@
 import { Input } from "antd";
 
 type TextInputComponentProps = {
+    value: string;
     placeHolder: string;
     onChange: (value: string) => void;
     maxLength: number;
 }
 
 export default function TextInputComponent(props: Readonly<TextInputComponentProps>) {
-    return (<Input placeholder={props.placeHolder} maxLength={props.maxLength} onChange={(value) => { props.onChange(value.target.value) }} />)
+    return (<Input value={props.value} placeholder={props.placeHolder} maxLength={props.maxLength} onChange={(value) => { props.onChange(value.target.value) }} />)
 }

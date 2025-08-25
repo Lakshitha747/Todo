@@ -8,7 +8,7 @@ namespace Todo.Domain
     {
         public TodoDbContext(DbContextOptions<TodoDbContext> options) : base(options)
         {
-            Database.Migrate();
+            Database.EnsureCreated();
         }
 
         public DbSet<TodoTask> Tasks { get; set; }

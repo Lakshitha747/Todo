@@ -2,6 +2,8 @@ using Todo.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Environment.SetEnvironmentVariable("Production", builder.Environment.IsProduction().ToString());
+
 // Add services to the container.
 builder.Services.AddContractDependencies();
 

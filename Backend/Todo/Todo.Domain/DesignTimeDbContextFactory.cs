@@ -8,7 +8,7 @@ namespace Todo.Domain
     {
         public TodoDbContext CreateDbContext(string[] args)
         {
-            AppSettings appSettings = new AppSettings();
+            AppSettings appSettings = new AppSettings(false);
             var dbConnectionString = appSettings.GetDbConnectionString();
             var options = new DbContextOptionsBuilder<TodoDbContext>();
             options.UseNpgsql(dbConnectionString);

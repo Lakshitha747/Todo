@@ -10,7 +10,14 @@ namespace Todo.Domain
     {
         public static IServiceCollection AddDomainDependencies(this IServiceCollection services)
         {
-            AppSettings appSettings = new();
+            var isProduction = Environment.GetEnvironmentVariable("Production");
+
+            if (string.IsNullOrEmpty(isProduction))
+            {
+                isProduction = "false";
+            }
+
+            AppSettings appSettings = new(bool.Parse(isProduction));
             var dbConnectionString = appSettings.GetDbConnectionString();
 
             services.AddDbContext<TodoDbContext>(options =>

@@ -35,7 +35,7 @@ Before you begin, ensure you have the following installed on your machine:
 To build the Docker images and start all the services (PostgreSQL, backend, and frontend), navigate to the directory containing your `docker-compose.yml` file and run the following command:
 
 ```bash
-docker compose up --build -d
+docker-compose up --build -d
 ```
 
 ### 2. Access the Application
@@ -48,5 +48,5 @@ Backend API: The API is running on port 8080 and is accessible at http://localho
 To stop and remove the containers, networks, and volumes created by docker compose up, run the following command in the same directory:
 
 ```bash
-docker compose down
+docker-compose down
 ```

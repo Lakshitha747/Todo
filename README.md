@@ -36,6 +36,7 @@ To build the Docker images and start all the services (PostgreSQL, backend, and 
 
 ```bash
 docker compose up --build -d
+```
 
 ### 2. Access the Application
 
@@ -48,3 +49,4 @@ To stop and remove the containers, networks, and volumes created by docker compo
 
 ```bash
 docker compose down
+```

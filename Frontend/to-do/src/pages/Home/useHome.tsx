@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import type { ICard } from "../../helpers/Interfaces";
+import { getDeviceId } from "../../helpers/IdentifierFunctions";
+import { ApiService } from "../../services/ApiService";
 
 type formValueTypes = "title" | "description";
 
 export function useCards() {
-
     const [cards, setCards] = useState<ICard[]>([
         { id: 1, title: "Hi", description: "Short desc" },
         { id: 2, title: "Sample title", description: "A medium length description here" },
@@ -13,6 +14,9 @@ export function useCards() {
         { id: 5, title: "ExactlyTwentyChars!!", description: "This description uses forty characters max!!" }
     ]);
     const [form, setForm] = useState({ title: "", description: "" });
+    const [loading, setLoading] = useState(false);
+
+    const apiService = new ApiService();
 
     useEffect(() => {
         authenticate(getCards);
@@ -23,12 +27,25 @@ export function useCards() {
     }
 
     const authenticate = (callback: CallableFunction) => {
-        console.log("authenticate")
+        let uuid = getDeviceId();
+
+        console.log("authenticate", uuid)
         callback();
     }
 
-    const getCards = () => {
-        console.log("get cards")
+    const getCards = async () => {
+        
+        setLoading(true);
+
+     await apiService.getTasks("d520c7a8-421b-4563-b955-f5abc56b97ec").then((response)=>{
+let data=response.data;
+
+console.log("data ",data)
+     }).catch(err){
+        handleApiErrors(err);
+     }.finally(()=>{
+        setLoading(false);
+     })
     }
 
     const add = () => {
@@ -40,5 +57,5 @@ export function useCards() {
         console.log("complete")
     }
 
-    return { cards, handleForms, add, complete };
+    return { loading,cards, handleForms, add, complete };
 }

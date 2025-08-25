@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Todo.Domain.Configurations;
 using Todo.Domain.Contracts;
 using Todo.Domain.Repositories;
 
@@ -9,11 +10,12 @@ namespace Todo.Domain
     {
         public static IServiceCollection AddDomainDependencies(this IServiceCollection services)
         {
-            var dbConnection = "Host=localhost;Username=postgres;Password=root;Database=todo";
+            AppSettings appSettings = new();
+            var dbConnectionString = appSettings.GetDbConnectionString();
 
             services.AddDbContext<TodoDbContext>(options =>
             {
-                options.UseNpgsql(dbConnection);
+                options.UseNpgsql(dbConnectionString);
             });
 
             services.AddScoped<ITaskRepository, TaskRepository>();

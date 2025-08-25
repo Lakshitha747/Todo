@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: todo_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo
+    ports:
+      - "5432:5432"
+    volumes:
+      - todo_pgdata:/var/lib/postgresql/data
+      # Uncomment if you have init scripts:
+      # - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d todo"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./Backend/Todo
+      dockerfile: ./Todo.API/Dockerfile
+    container_name: todo_backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Kestrel
+      ASPNETCORE_URLS: http://+:8080
+      # Connection string (match what your API reads)
+      ConnectionStrings__Default: Host=postgres;Port=5432;Database=todo_db;Username=postgres;Password=postgres;Pooling=true
+      # Optional: set ASPNETCORE_ENVIRONMENT if you need it
+      ASPNETCORE_ENVIRONMENT: Production
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./Frontend/to-do
+      dockerfile: ./Dockerfile
+    container_name: todo_frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    restart: unless-stopped
+
+volumes:
+  todo_pgdata:

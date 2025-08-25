@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Todo.Domain.Configurations;
 
 namespace Todo.Domain
 {
@@ -7,9 +8,10 @@ namespace Todo.Domain
     {
         public TodoDbContext CreateDbContext(string[] args)
         {
-            var dbcon = "Host=localhost;Username=postgres;Password=root;Database=todo";
+            AppSettings appSettings = new AppSettings();
+            var dbConnectionString = appSettings.GetDbConnectionString();
             var options = new DbContextOptionsBuilder<TodoDbContext>();
-            options.UseNpgsql(dbcon);
+            options.UseNpgsql(dbConnectionString);
             return new TodoDbContext(options.Options);
         }
     }
